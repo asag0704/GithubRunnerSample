@@ -1,0 +1,34 @@
+name: CD (TEST)
+
+on:
+  push:
+    branches:
+      - release/*
+  workflow_dispatch:
+    inputs:
+      Build Title:
+        description: Build Title
+        required: true
+          
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribute: "zulu"
+          java-version: 11
+          
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 10
+          
+      - name: Android Build
+        run: ./gradlew build
+      
