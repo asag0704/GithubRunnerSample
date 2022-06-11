@@ -39,7 +39,7 @@ jobs:
       - name: Android Build
         run: |
           if [[ github.event.inputs.BuildTitle == '' ]]
-            echo empty
+            echo "empty"
           else
-            echo not empty
+            echo "not empty"
           fi
