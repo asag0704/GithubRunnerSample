@@ -17,6 +17,11 @@ jobs:
 
     steps:
       - name: Runner Info
+        run: |
+        echo "$(whoami)@$(scutil --get ComputerName)"
+        echo "OS Version: $(sw_vers -productVersion)"
+        echo "Ruby(rbenv): $(rbenv global)"
+        echo "Ruby: $(ruby --version)"
 
       - name: Setup JDK 11
         uses: actions/setup-java@v3
