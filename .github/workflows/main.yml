@@ -3,7 +3,7 @@ name: CD (Canary)
 on:
   push:
     branches:
-      - develop
+      - master
 
   workflow_dispatch:
     inputs:
