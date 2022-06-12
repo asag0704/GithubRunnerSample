@@ -34,7 +34,18 @@ jobs:
         with:
           distribution: "zulu"
           java-version: 11
-          cache: 'gradle'
+
+      - name: Cache Ruby Dependencies
+        uses: actions/cache@v3
+        id: ruby-bundle-cache-step
+        with:
+          path: ruby-bundle-cache
+          key: ${{ env.machine_name }}-${{ env.ruby_version }}-ruby-bundle-cache-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: ${{ env.machine_name }}-${{ env.ruby_version }}-ruby-bundle-cache-
+
+      - name: Install Ruby Dependencies
+        if: steps.ruby-bundle-cache-step.cache-hit != 'true'
+        run: bundle config set path 'ruby-bundle-cache' && bundle install
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
@@ -51,3 +62,4 @@ jobs:
           else
             echo "not empty"
           fi
+          ./gradlew build
