@@ -43,9 +43,9 @@ jobs:
           key: ${{ env.machine_name }}-${{ env.ruby_version }}-ruby-bundle-cache-${{ hashFiles('Gemfile.lock') }}
           restore-keys: ${{ env.machine_name }}-${{ env.ruby_version }}-ruby-bundle-cache-
 
-      - name: Install Ruby Dependencies
-        if: steps.ruby-bundle-cache-step.cache-hit != 'true'
-        run: bundle config set path 'ruby-bundle-cache' && bundle install
+      # - name: Install Ruby Dependencies
+      #   if: steps.ruby-bundle-cache-step.cache-hit != 'true'
+      #   run: bundle config set path 'ruby-bundle-cache' && bundle install
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
